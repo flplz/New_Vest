@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste - Máscara de Telefone</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-case {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Teste da Máscara de Telefone</h1>
+    
+    <div class="test-case">
+        <h3>Teste 1: Digitação Normal</h3>
+        <input type="tel" id="test1" placeholder="Digite números aqui">
+        <div class="result" id="result1"></div>
+    </div>
+    
+    <div class="test-case">
+        <h3>Teste 2: Colar Número</h3>
+        <input type="tel" id="test2" placeholder="Cole um número aqui">
+        <div class="result" id="result2"></div>
+    </div>
+    
+    <div class="test-case">
+        <h3>Teste 3: Validação</h3>
+        <input type="tel" id="test3" placeholder="Teste validação">
+        <button onclick="validarTelefone()">Validar</button>
+        <div class="result" id="result3"></div>
+    </div>
+    
+    <div class="test-case">
+        <h3>Casos de Teste Automáticos</h3>
+        <button onclick="executarTestes()">Executar Testes</button>
+        <div id="testesAutomaticos"></div>
+    </div>
+
+    <script>
+        // Máscara para telefone melhorada
+        function aplicarMascaraTelefone(input) {
+            let value = input.value.replace(/\D/g, '');
+            
+            // Limitar a 11 dígitos
+            if (value.length > 11) {
+                value = value.slice(0, 11);
+            }
+            
+            // Aplicar máscara
+            let maskedValue = '';
+            if (value.length === 0) {
+                maskedValue = '';
+            } else if (value.length <= 2) {
+                maskedValue = `(${value}`;
+            } else if (value.length <= 6) {
+                maskedValue = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+            } else if (value.length <= 10) {
+                maskedValue = `(${value.slice(0, 2)}) ${value.slice(2, 6)}-${value.slice(6)}`;
+            } else {
+                maskedValue = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+            }
+            
+            input.value = maskedValue;
+            return value; // Retorna apenas os números
+        }
+        
+        // Configurar máscaras
+        document.getElementById('test1').addEventListener('input', function(e) {
+            const numeros = aplicarMascaraTelefone(this);
+            document.getElementById('result1').textContent = `Números extraídos: ${numeros} (${numeros.length} dígitos)`;
+        });
+        
+        document.getElementById('test2').addEventListener('paste', function(e) {
+            e.preventDefault();
+            let pastedText = (e.clipboardData || window.clipboardData).getData('text');
+            let numbers = pastedText.replace(/\D/g, '');
+            
+            if (numbers.length > 11) {
+                numbers = numbers.slice(0, 11);
+            }
+            
+            // Aplicar máscara
+            let maskedValue = '';
+            if (numbers.length <= 2) {
+                maskedValue = `(${numbers}`;
+            } else if (numbers.length <= 6) {
+                maskedValue = `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`;
+            } else if (numbers.length <= 10) {
+                maskedValue = `(${numbers.slice(0, 2)}) ${numbers.slice(2, 6)}-${numbers.slice(6)}`;
+            } else {
+                maskedValue = `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7)}`;
+            }
+            
+            this.value = maskedValue;
+            document.getElementById('result2').textContent = `Texto colado: "${pastedText}" → Números: ${numbers} → Máscara: ${maskedValue}`;
+        });
+        
+        function validarTelefone() {
+            const input = document.getElementById('test3');
+            const numeros = input.value.replace(/\D/g, '');
+            const result = document.getElementById('result3');
+            
+            if (numeros.length < 10) {
+                result.textContent = `❌ Inválido: Muito curto (${numeros.length} dígitos). Mínimo: 10 dígitos.`;
+                result.className = 'result error';
+            } else if (numeros.length > 11) {
+                result.textContent = `❌ Inválido: Muito longo (${numeros.length} dígitos). Máximo: 11 dígitos.`;
+                result.className = 'result error';
+            } else {
+                result.textContent = `✅ Válido: ${numeros.length} dígitos - ${numeros}`;
+                result.className = 'result success';
+            }
+        }
+        
+        function executarTestes() {
+            const testes = [
+                { input: '11999887766', expected: '(11) 99988-7766' },
+                { input: '1199988776', expected: '(11) 99988-776' },
+                { input: '119998877', expected: '(11) 99988-77' },
+                { input: '1199988', expected: '(11) 99988' },
+                { input: '11', expected: '(11' },
+                { input: '1', expected: '(1' },
+                { input: '', expected: '' },
+                { input: '11999887766123', expected: '(11) 99988-7766' }, // Deve truncar
+                { input: 'abc11999887766def', expected: '(11) 99988-7766' } // Deve extrair apenas números
+            ];
+            
+            const container = document.getElementById('testesAutomaticos');
+            container.innerHTML = '<h4>Resultados dos Testes:</h4>';
+            
+            testes.forEach((teste, index) => {
+                const input = document.createElement('input');
+                input.value = teste.input;
+                aplicarMascaraTelefone(input);
+                
+                const resultado = input.value === teste.expected ? '✅ PASSOU' : '❌ FALHOU';
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <strong>Teste ${index + 1}:</strong> "${teste.input}" → "${input.value}" 
+                    <span style="color: ${input.value === teste.expected ? 'green' : 'red'}">${resultado}</span>
+                `;
+                container.appendChild(div);
+            });
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vestiário - Pré-lista</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      color: #333;
+    }
+
+    header {
+      background: #fff;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      color: #ff8800;
+      font-size: 22px;
+      margin: 0;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      padding: 8px 16px;
+      background: #ff8800;
+      border-radius: 6px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 30px;
+    }
+
+    .form-card, .card {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .form-card h2 {
+      color: #333;
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      background: #ff8800;
+      color: #000;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .features, .benefits {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .card i {
+      font-size: 24px;
+      color: #ff8800;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      color: #111;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #555;
+      font-size: 15px;
+    }
+
+    .highlight {
+      color: #ff8800;
+      font-weight: bold;
+    }
+
+    .about {
+      margin-top: 50px;
+    }
+
+    .about p {
+      margin-bottom: 16px;
+      font-size: 16px;
+      color: #444;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <img src= "imagens/logo_e_nome_sem_fundo.png" alt="Logo Vestiário" style="height: 44px; width: auto; display: block;" />
+      <h1>Vestiário</h1>
+    </div>
+    <nav>
+      <a href="#funcionalidades">Funcionalidades</a>
+      <a href="#quem-somos">Quem somos</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <section class="form-card">
+      <h2><span class="highlight">Garanta seu acesso antecipado</span></h2>
+      <form id="preListaForm">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="Seu e-mail" required>
+        <label for="telefone">Número de telefone</label>
+        <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required inputmode="numeric">
+        <small style="color: #666; font-size: 12px;">Digite apenas números, a formatação será aplicada automaticamente</small>
+        <label for="tipo">Você é:</label>
+        <select id="tipo" name="tipo" required>
+          <option value="">Selecione</option>
+          <option value="Jogador">Jogador</option>
+          <option value="Dono">Dono / Trabalhador / Funcionário em uma instalação esportiva</option>
+        </select>
+        <button type="submit">Faça parte da nossa pré-lista!</button>
+        <div id="successMsg" style="display:none; color:#ff8800; font-weight:700; margin-top:12px;">Cadastro enviado com sucesso!</div>
+        <div id="errorMsg" style="display:none; color:red; font-weight:700; margin-top:12px;">Erro ao enviar. Verifique os dados e tente novamente.</div>
+      </form>
+    </section>
+
+    <section class="benefits" style="margin-top: 60px;">
+      <div class="card">
+        <i class="fas fa-futbol"></i>
+        <h3>Para o jogador</h3>
+        <p>✔ Reserve quadras em segundos<br>
+        ✔ Divida o valor da quadra com amigos direto no site<br>
+        ✔ Use os modos Desafio e Complete<br>
+        ✔ Crie sua própria carta de jogador</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-clipboard-check"></i>
+        <h3>Para o dono de quadra</h3>
+        <p>✔ Quadras mais ocupadas<br>
+        ✔ Menos mensagens para responder<br>
+        ✔ Receba na hora e sem stress<br>
+        ✔ Gestão automática da agenda</p>
+      </div>
+    </section>
+
+    <h2 id="funcionalidades" style="margin-top: 60px;" class="highlight">Funcionalidades</h2>
+    <section class="features">
+      <div class="card">
+        <i class="fas fa-calendar-alt"></i>
+        <h3>Agenda interativa</h3>
+        <p>Veja os horários disponíveis e agende em segundos.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-credit-card"></i>
+        <h3>Pagamento digital</h3>
+        <p>Sem mais transferências. Tudo direto no site.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-handshake"></i>
+        <h3>Complete um time</h3>
+        <p>Encontre jogadores para completar sua pelada.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-users"></i>
+        <h3>Desafie outro time</h3>
+        <p>Monte seu time e desafie adversários com facilidade.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-star"></i>
+        <h3>Carta de jogador</h3>
+        <p>Ganhe uma nota baseada no seu desempenho e avaliações.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-map-marker-alt"></i>
+        <h3>Saiba o que a quadra oferece</h3>
+        <p>Visualize fotos, tipo de piso, iluminação e mais sem precisar perguntar.</p>
+      </div>
+    </section>
+
+    <section class="about" id="quem-somos">
+      <div class="card">
+        <h2 class="highlight">Quem somos</h2>
+        <p>Somos uma startup nascida em Florianópolis com uma missão clara: transformar a forma como as pessoas marcam suas partidas esportivas.</p>
+        <p>Acreditamos que o esporte vai além do jogo — ele conecta, inspira e cria memórias.</p>
+        <p>Estamos aqui para tornar a reserva de quadras mais rápida, fácil e divertida para todo mundo.</p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    © 2025 Vestiário. Todos os direitos reservados.
+  </footer>
+
+  <script>
+  document.getElementById('preListaForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const button = form.querySelector('button[type="submit"]');
+    const originalText = button.textContent;
+    const successMsg = document.getElementById('successMsg');
+    const errorMsg = document.getElementById('errorMsg');
+    
+    try {
+      // Estado de carregamento
+      button.disabled = true;
+      button.textContent = 'Enviando...';
+      errorMsg.style.display = 'none';
+      successMsg.style.display = 'none';
+      
+      // Validação dos dados
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const telefone = document.getElementById('telefone').value.replace(/\D/g, '');
+      const tipo = document.getElementById('tipo').value;
+      
+      if (!nome || !email || !telefone || !tipo) {
+        throw new Error('Por favor, preencha todos os campos obrigatórios.');
+      }
+      
+      // Validação mais flexível do telefone
+      if (telefone.length < 10) {
+        throw new Error('Por favor, insira um número de telefone válido com pelo menos 10 dígitos.');
+      }
+      
+      if (telefone.length > 11) {
+        throw new Error('Por favor, insira um número de telefone válido com no máximo 11 dígitos.');
+      }
+      
+      // Coletar dados
+      const formData = {
+        nome: nome,
+        email: email,
+        telefone: telefone,
+        tipo: tipo
+      };
+      
+      console.log('Enviando dados:', formData);
+
+      // Enviar via servidor local
+      const response = await fetch('/api/enviar-formulario', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Erro no servidor: ${response.status}`);
+      }
+      
+      const result = await response.json();
+      console.log('Resposta:', result);
+      
+      if (result.status !== 'success') {
+        throw new Error(result.message || 'Erro ao processar formulário');
+      }
+      
+      // Sucesso
+      successMsg.textContent = 'Cadastro enviado com sucesso! Você receberá novidades em breve.';
+      successMsg.style.display = 'block';
+      form.reset();
+      
+      // Scroll para a mensagem de sucesso
+      successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      
+    } catch (error) {
+      console.error('Erro:', error);
+      errorMsg.textContent = error.message || 'Erro ao enviar formulário. Tente novamente.';
+      errorMsg.style.display = 'block';
+      
+      // Scroll para a mensagem de erro
+      errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      
+    } finally {
+      button.disabled = false;
+      button.textContent = originalText;
+    }
+  });
+  
+  // Máscara para telefone
+  document.getElementById('telefone').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    
+    if (value.length <= 11) {
+      if (value.length <= 2) {
+        value = `(${value}`;
+      } else if (value.length <= 6) {
+        value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+      } else if (value.length <= 10) {
+        value = `(${value.slice(0, 2)}) ${value.slice(2, 6)}-${value.slice(6)}`;
+      } else {
+        value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+      }
+    }
+    
+    e.target.value = value;
+  });
+  </script>
+</body>
+</html>
